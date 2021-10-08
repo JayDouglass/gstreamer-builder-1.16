@@ -51,3 +51,16 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ meson --prefix=/opt/gstreamer build
 RUN ninja -C build
 RUN ninja -C build install
 
+WORKDIR /build
+RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git
+WORKDIR /build/gst-plugins-base
+RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
+    meson --prefix=/opt/gstreamer \
+    -D gl=enabled \
+    -D gl_api=gles2 \
+    -D gl_platform=egl \
+    -D gl_winsys=x11 \    
+    build
+RUN ninja -C build
+RUN ninja -C build install    
+
