@@ -60,6 +60,7 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
     -D gl_api=gles2 \
     -D gl_platform=egl \
     -D gl_winsys=x11 \    
+    -D gtk_doc=disabled \
     build
 RUN ninja -C build
 RUN ninja -C build install    
