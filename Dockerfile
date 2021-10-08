@@ -90,6 +90,7 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
     meson --prefix=/opt/gstreamer \
     -D srt=enabled \
 	-D rtmp=enabled \    
+    -D examples=disabled -D tests=disabled \
     build
 RUN ninja -C build
 RUN ninja -C build install   
