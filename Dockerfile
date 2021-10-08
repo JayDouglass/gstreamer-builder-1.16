@@ -35,6 +35,7 @@ RUN install_packages \
 RUN pip3 install meson
 WORKDIR /build
 RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gstreamer.git
+WORKDIR /build/gstreamer
 RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ meson --prefix=/opt/gstreamer \
     -D examples=disabled -D doc=disabled -D introspection=disabled \
     -D gst-plugins-base:gl=enabled \
