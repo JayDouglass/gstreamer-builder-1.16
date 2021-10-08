@@ -110,7 +110,8 @@ RUN ninja -C build install
 WORKDIR /build
 RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
 WORKDIR /build/gst-rpicamsrc
-RUN ./autogen.sh --prefix=/opt/gst-rpicamsrc --libdir=/opt/gstreamer/lib/arm-linux-gnueabihf/
+RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
+    ./autogen.sh --prefix=/opt/gst-rpicamsrc --libdir=/opt/gstreamer/lib/arm-linux-gnueabihf/
 RUN make && make install
 
 FROM scratch
