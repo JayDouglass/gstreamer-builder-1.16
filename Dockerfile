@@ -105,7 +105,13 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
     -D header_path=/opt/vc/include/IL \
     build
 RUN ninja -C build
-RUN ninja -C build install       
+RUN ninja -C build install     
+
+WORKDIR /build
+RUN git clone https://github.com/thaytan/gst-rpicamsrc.git
+WORKDIR /build/gst-rpicamsrc
+RUN ./autogen.sh --prefix=/opt/gst-rpicamsrc --libdir=/opt/gstreamer/lib/arm-linux-gnueabihf/
+RUN make && make install
 
 FROM scratch
 COPY --from=gstreamer_builder /opt/gstreamer /opt/gstreamer
