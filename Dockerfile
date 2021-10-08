@@ -54,6 +54,7 @@ RUN ninja -C build install
 WORKDIR /build
 RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git
 WORKDIR /build/gst-plugins-base
+# disable gtk_doc because it errors on install
 RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
     meson --prefix=/opt/gstreamer \
     -D gl=enabled \
@@ -65,3 +66,12 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
 RUN ninja -C build
 RUN ninja -C build install    
 
+WORKDIR /build
+RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git
+WORKDIR /build/gst-plugins-good
+# disable gtk_doc because it errors on install
+RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
+    meson --prefix=/opt/gstreamer \
+    build
+RUN ninja -C build
+RUN ninja -C build install    
