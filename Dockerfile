@@ -118,4 +118,3 @@ FROM scratch
 COPY --from=gstreamer_builder /opt/gstreamer /opt/gstreamer
 COPY --from=gstreamer_builder /opt/srt /opt/srt
 COPY --from=gstreamer_builder /opt/gst-omx /opt/gst-omx
-COPY --from=gstreamer_builder /opt/gst-rpicamsrc /opt/gst-rpicamsrc
