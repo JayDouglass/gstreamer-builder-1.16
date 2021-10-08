@@ -94,3 +94,15 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
     build
 RUN ninja -C build
 RUN ninja -C build install   
+
+WORKDIR /build
+RUN git clone -b 1.16 https://github.com/GStreamer/gst-omx
+WORKDIR /build/gst-omx
+RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
+    meson --prefix=/opt/gst-omx \
+    -D target=rpi \
+    -D buildtype=release \
+    -D header_path=/opt/vc/include/IL \
+    build
+RUN ninja -C build
+RUN ninja -C build install       
