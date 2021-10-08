@@ -79,7 +79,7 @@ WORKDIR /build
 RUN git clone https://github.com/Haivision/srt.git
 WORKDIR /build/srt
 RUN echo "set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")" >> CMakeLists.txt
-RUN ./configure --prefix=/opt/srt && make
+RUN configure --prefix=/opt/srt && make
 RUN make install
 
 
