@@ -83,12 +83,13 @@ RUN echo "set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")" >> CMake
 RUN ./configure --prefix=/opt/srt && make
 RUN make install
 
-
-# WORKDIR /build
-# RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git
-# WORKDIR /build/gst-plugins-bad
-# RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
-#     meson --prefix=/opt/gstreamer \
-#     build
-# RUN ninja -C build
-# RUN ninja -C build install   
+WORKDIR /build
+RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git
+WORKDIR /build/gst-plugins-bad
+RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig:/opt/srt/lib/pkgconfig/ \
+    meson --prefix=/opt/gstreamer \
+    -D srt=enabled \
+	-D rtmp=enabled \    
+    build
+RUN ninja -C build
+RUN ninja -C build install   
