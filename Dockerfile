@@ -69,9 +69,25 @@ RUN ninja -C build install
 WORKDIR /build
 RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git
 WORKDIR /build/gst-plugins-good
-# disable gtk_doc because it errors on install
 RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
     meson --prefix=/opt/gstreamer \
     build
 RUN ninja -C build
-RUN ninja -C build install    
+RUN ninja -C build install   
+
+WORKDIR /build
+RUN git clone https://github.com/Haivision/srt.git
+WORKDIR /build/srt
+RUN echo "set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")" >> CMakeLists.txt
+RUN ./configure --prefix=/opt/srt && make
+RUN make install
+
+
+# WORKDIR /build
+# RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git
+# WORKDIR /build/gst-plugins-bad
+# RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig \
+#     meson --prefix=/opt/gstreamer \
+#     build
+# RUN ninja -C build
+# RUN ninja -C build install   
