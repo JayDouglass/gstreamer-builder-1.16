@@ -36,17 +36,6 @@ RUN pip3 install meson
 WORKDIR /build
 RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gstreamer.git
 WORKDIR /build/gstreamer
-# RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ meson --prefix=/opt/gstreamer \
-#     -D examples=disabled -D doc=disabled -D introspection=disabled \
-#     -D gst-plugins-base:gl=enabled \
-#     -D gst-plugins-base:gl_api=gles2 \
-#     -D gst-plugins-base:gl_platform=egl \
-#     -D gst-plugins-base:gl_winsys=x11 \
-#     -D omx=enabled -D gst-omx:target=rpi -D gst-omx:header_path="/opt/vc/include/IL" \
-#     builddir
-# RUN ninja -C builddir
-# RUN mkdir /opt/gstreamer
-# RUN meson install -C builddir
 RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/ meson --prefix=/opt/gstreamer build
 RUN ninja -C build
 RUN ninja -C build install
