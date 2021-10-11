@@ -74,7 +74,7 @@ RUN make install
 
 WORKDIR /build
 # RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git
-RUN echo "force rebuild, use 1.18" && git clone -b 1.16-backport-1.18-srtsink https://github.com/angeleye/gst-plugins-bad.git
+RUN echo "force rebuild asdf" && git clone -b 1.16-backport-1.18-srtsink https://github.com/angeleye/gst-plugins-bad.git
 WORKDIR /build/gst-plugins-bad
 RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabihf/pkgconfig:/opt/srt/lib/pkgconfig/ \
     meson --prefix=/opt/gstreamer \
