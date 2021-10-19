@@ -31,7 +31,8 @@ RUN install_packages \
     weston wayland-protocols pulseaudio libpulse-dev libssl-dev \
     libgtk-3-dev gettext freeglut3-dev \
     libx11-xcb-dev \
-    libegl1-mesa-dev libgles2-mesa-dev 
+    libegl1-mesa-dev libgles2-mesa-dev \
+    libnice-dev
 RUN pip3 install meson
 WORKDIR /build
 RUN git clone -b 1.16 https://gitlab.freedesktop.org/gstreamer/gstreamer.git
@@ -80,6 +81,7 @@ RUN PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig/:/opt/gstreamer/lib/arm-linux-gnueabih
     meson --prefix=/opt/gstreamer \
     -D srt=enabled \
 	-D rtmp=enabled \    
+    -D webrtc=enabled \
     -D examples=disabled -D tests=disabled \
     build
 RUN ninja -C build
